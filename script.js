@@ -61,7 +61,9 @@ function renderMainMenu() {
         <h1>Typing Car</h1>
         <div id="stats-display">
             <p>WPM: ${gameState.wpm} | High Score: ${gameState.highScoreWPM} WPM</p>
-            <p>Currency: $${gameState.currency.toLocaleString()}</p>
+            <div class="currency-display"> <!-- Added div for currency display bar -->
+                <p>Currency: $${gameState.currency.toLocaleString()}</p>
+            </div>
         </div>
         <button class="menu-button" onclick="changePage('race')">Race Now</button>
         <button class="menu-button" onclick="changePage('shop')">Shop</button>
@@ -138,13 +140,13 @@ function renderRace() {
                  <div id="progress-bar"></div>
             </div>
         </div>
+        <div id="word-display"> <!-- Moved word display higher -->
+            <p id="words-to-type"></p>
+        </div>
         <div id="race-info">
             <p>WPM: <span id="current-wpm">${gameState.wpm}</span></p>
             <p>Time: <span id="time-elapsed">${formatTime(gameState.timeElapsed)}</span></p>
             <p>Target Word: <span id="target-word">${gameState.targetWord}</span></p>
-        </div>
-        <div id="word-display">
-            <p id="words-to-type"></p>
         </div>
         <input type="text" id="race-input" placeholder="Type here to race..." autocomplete="off">
         <button class="menu-button" onclick="endRace()">Quit Race</button>
@@ -200,7 +202,7 @@ function purchaseCar(carId) {
             }
         });
         updateDOM();
-        checkAchievement('first_car_purchased'); // Uncommented this line
+        checkAchievement('first_car_purchased');
     } else {
         alert("Not enough currency!");
     }
