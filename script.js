@@ -66,7 +66,7 @@ function renderMainMenu() {
                 <p>Currency: $${gameState.currency.toLocaleString()}</p>
             </div>
         </div>
-        <button class="menu-button" onclick="changePage('race')">Race Now</button>
+        <button class="menu-button" onclick="startRace()">Race Now</button>
         <button class="menu-button" onclick="changePage('shop')">Shop</button>
         <button class="menu-button" onclick="changePage('achievements')">Achievements</button>
     `;
@@ -226,6 +226,7 @@ function formatTime(seconds) {
 // --- Race Logic ---
 function startRace() {
     if (gameState.raceInProgress) return;
+    gameState.currentPage = 'race'; // Set the current page
 
     gameState.raceInProgress = true;
     gameState.wordIndex = 0;
