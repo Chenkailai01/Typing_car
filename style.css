@@ -78,8 +78,18 @@ h1 {
 }
 
 /* Visual styles for different cars (using colors as placeholders) */
-.mustang { background-color: #3498db; } /* Blue */
-.porsche { background-color: #f1c40f; } /* Yellow */
+.mustang {
+    background-image: url('Ford_mustang.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.porsche {
+    background-image: url('porsche_911 .webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .ferrari { background-color: #e74c3c; } /* Red */
 .mclaren { background-color: #9b59b6; } /* Purple */
 .lamborghini { background-color: #2ecc71; } /* Green */
