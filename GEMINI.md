@@ -15,6 +15,7 @@ The project is named "Typing_car". It is described as a car racing game where pl
 *   **Achievements:** Includes beating personal high scores for Words Per Minute (WPM), with rewards like $500,000 for achieving certain milestones.
 *   **Version Control:** The project is indicated to be hosted on GitHub, suggesting the use of Git for version control.
 *   **Visuals:** Cars are represented by distinct colored placeholders. Actual car image assets can be integrated later.
+*   **Porsche 911 Asset:** A .webp image has been provided for the Porsche 911. This can be placed in an `assets/` folder and linked in `style.css` for visual representation.
 
 ## Building and Running
 
