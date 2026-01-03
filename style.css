@@ -1,6 +1,6 @@
 /* Visual styles for different cars (using colors as placeholders) */
 .mustang { background-color: #3498db; } /* Blue */
-.porsche { background-image: url('assets/porsche.webp'); background-color: transparent; } /* Porsche 911 image placeholder */
+.porsche { background-color: #f1c40f; } /* Yellow */
 .ferrari { background-color: #e74c3c; } /* Red */
 .mclaren { background-color: #9b59b6; } /* Purple */
 .lamborghini { background-color: #2ecc71; } /* Green */
