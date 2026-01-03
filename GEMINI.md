@@ -14,6 +14,7 @@ The project is named "Typing_car". It is described as a car racing game where pl
     *   Shop: Features various car models like Bugatti, Lamborghini, Porsche, Formula One race car, McLaren, Ferrari, and a free Ford Mustang. Cars have associated costs (e.g., Porsche $560,000, Ferrari $850,000, McLaren $1,000,000, Lamborghini $1,400,000, Bugatti $1,600,000, Formula One $2,000,000).
 *   **Achievements:** Includes beating personal high scores for Words Per Minute (WPM), with rewards like $500,000 for achieving certain milestones.
 *   **Version Control:** The project is indicated to be hosted on GitHub, suggesting the use of Git for version control.
+*   **Visuals:** Cars are represented by distinct colored placeholders. Actual car image assets can be integrated later.
 
 ## Building and Running
 

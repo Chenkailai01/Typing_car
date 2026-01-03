@@ -70,34 +70,21 @@ h1 {
     left: 0; /* Start at the beginning of its container */
     width: 70px; /* Car width */
     height: 50px; /* Car height */
-    background-color: #e74c3c; /* Default red car if image fails */
     border-radius: 4px;
     transition: transform 0.1s linear; /* Smooth movement controlled by JS */
-    /* Placeholder for car images - replace 'assets/...' with actual paths */
-    /* background-image: url('assets/mustang.png'); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-/* Basic car styles */
-.car {
-    width: 70px; /* Match #player-car width */
-    height: 50px; /* Match #player-car height */
-    border-radius: 4px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-/* Placeholder car image classes - Replace with actual image paths */
-.mustang { background-image: url('assets/mustang.png'); background-color: transparent; }
-.porsche { background-image: url('assets/porsche.png'); background-color: transparent; }
-.ferrari { background-image: url('assets/ferrari.png'); background-color: transparent; }
-.mclaren { background-image: url('assets/mclaren.png'); background-color: transparent; }
-.lamborghini { background-image: url('assets/lamborghini.png'); background-color: transparent; }
-.bugatti { background-image: url('assets/bugatti.png'); background-color: transparent; }
-.f1 { background-image: url('assets/f1.png'); background-color: transparent; }
+/* Visual styles for different cars (using colors as placeholders) */
+.mustang { background-color: #3498db; } /* Blue */
+.porsche { background-color: #f1c40f; } /* Yellow */
+.ferrari { background-color: #e74c3c; } /* Red */
+.mclaren { background-color: #9b59b6; } /* Purple */
+.lamborghini { background-color: #2ecc71; } /* Green */
+.bugatti { background-color: #34495e; } /* Dark Gray */
+.f1 { background-color: #ecf0f1; } /* White */
 
 
 #progress-bar-container {
