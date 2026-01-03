@@ -160,8 +160,14 @@ function renderRace() {
     progressBarElement = document.getElementById('progress-bar');
 
     // Populate the words to type and highlight the first word
+    // Ensure words are generated before highlighting
+    if (gameState.currentRaceWords.length === 0) {
+        gameState.currentRaceWords = generateRaceWords();
+        gameState.targetWord = gameState.currentRaceWords[gameState.wordIndex];
+        gameState.totalRaceCharacters = gameState.currentRaceWords.join(' ').length;
+    }
     highlightWord(gameState.wordIndex);
-    
+
     // Attach input event listener for race
     document.getElementById('race-input').addEventListener('input', handleRaceInput);
     document.getElementById('race-input').focus();
@@ -225,6 +231,11 @@ function formatTime(seconds) {
 
 // --- Race Logic ---
 function startRace() {
+    // Clear any existing interval to prevent multiple intervals running
+    if (gameState.raceInterval) {
+        clearInterval(gameState.raceInterval);
+    }
+
     if (gameState.raceInProgress) return;
     gameState.currentPage = 'race'; // Set the current page
 
@@ -239,7 +250,7 @@ function startRace() {
 
     document.getElementById('race-input').value = '';
     document.getElementById('race-input').focus();
-    
+
     // Check for achievement: First Race Completed
     checkAchievement('first_race_completed');
 
@@ -363,8 +374,9 @@ function highlightWord(index) {
 
 function endRace(completedByTyping = false) {
     clearInterval(gameState.raceInterval);
+    gameState.raceInterval = null; // Reset interval reference
     gameState.raceInProgress = false;
-    
+
     let finalWPM = calculateWPM();
     let raceResult = `Race Ended! Your final WPM: ${finalWPM}`;
 
@@ -387,7 +399,7 @@ function endRace(completedByTyping = false) {
             checkAchievement('wpm_100');
         }
     }
-    
+
     alert(raceResult);
 
     // Check for currency achievement AFTER currency might have been updated
@@ -401,7 +413,7 @@ function endRace(completedByTyping = false) {
     gameState.timeElapsed = 0;
     gameState.currentRaceInput = '';
     gameState.totalRaceCharacters = 0; // Reset total characters
-    
+
     changePage('mainMenu'); // Return to main menu
 }
 
