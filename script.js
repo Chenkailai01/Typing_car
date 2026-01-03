@@ -212,7 +212,6 @@ function checkAchievement(achievementId) {
     const achievement = gameState.achievements.find(a => a.id === achievementId);
     if (achievement && !achievement.earned) {
         achievement.earned = true;
-        // Optionally, show a notification
         alert(`Achievement Unlocked: ${achievement.name}!`);
         // Update currency if achievement provides one
         if (achievementId === 'first_race_completed') gameState.currency += 500000; // Example reward

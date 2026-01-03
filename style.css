@@ -188,3 +188,31 @@ h1 {
 .achievement-item.not-earned {
     background-color: #7f8c8d; /* Gray for not earned */
 }
+
+/* New styles for matching the screenshot's main menu stats */
+#stats-display {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#stats-display p { /* Style for WPM/High Score line */
+    margin: 5px 0;
+    color: #2ecc71; /* Greenish color for WPM/High Score */
+    font-size: 1.1em;
+}
+
+.currency-display {
+    background-color: #2ecc71; /* Green bar background */
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: inline-block; /* To make it fit content width */
+}
+
+.currency-display p { /* Style for currency text */
+    margin: 0;
+    color: #1abc9c; /* Teal color for currency text */
+    font-weight: bold;
+}
