@@ -67,9 +67,9 @@ h1 {
 #player-car {
     position: absolute;
     top: 0; /* Align to the top of car-container */
-    left: 0; /* Start at the beginning of its container */
-    width: 70px; /* Car width */
-    height: 50px; /* Car height */
+    left: 20px; /* Start slightly ahead of the line */
+    width: 100px; /* Car width */
+    height: 60px; /* Car height */
     border-radius: 4px;
     transition: transform 0.1s linear; /* Smooth movement controlled by JS */
     background-size: contain;
