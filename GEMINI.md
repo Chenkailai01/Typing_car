@@ -17,11 +17,16 @@ The project is named "Typing_car". It is described as a car racing game where pl
 
 ## Building and Running
 
-Based on the current directory structure, no specific build configuration files (e.g., `package.json`, `Makefile`, `pom.xml`, `requirements.txt`, `go.mod`, `Cargo.toml`, `build.gradle`) or source code files are immediately apparent. Therefore, specific commands for building, running, or testing the project cannot be inferred at this stage.
+This project is designed to be deployed as a static website on GitHub Pages. The primary file for the application is `index.html`, with styling in `style.css` and logic in `script.js`.
+
+For deployment to `Chenkailai01.github.io/Typing_car/`:
+*   The project should ideally reside in a GitHub repository named `Typing_car`.
+*   The `master` branch (or `gh-pages`) of this repository will serve as the source for GitHub Pages.
+*   No complex build process is currently required for this static site. The HTML, CSS, and JavaScript files can be deployed directly.
 
 **TODO:**
-*   Investigate the project repository to identify the programming language, framework, and any associated build tools or scripts.
-*   Document the necessary commands for building, running, and testing the application once identified.
+*   Confirm the desired branch for deployment on GitHub Pages (e.g., `gh-pages` or `main`).
+*   If a more complex build process or framework is adopted later, ensure it's configured for static site generation compatible with GitHub Pages.
 
 ## Development Conventions
 
