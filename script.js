@@ -234,9 +234,18 @@ function startRace() {
     // Clear any existing interval to prevent multiple intervals running
     if (gameState.raceInterval) {
         clearInterval(gameState.raceInterval);
+        gameState.raceInterval = null;
     }
 
-    if (gameState.raceInProgress) return;
+    if (gameState.raceInProgress) {
+        // If there's a race in progress, try to end it properly first
+        if (gameState.raceInterval) {
+            clearInterval(gameState.raceInterval);
+            gameState.raceInterval = null;
+        }
+        gameState.raceInProgress = false;
+    }
+
     gameState.currentPage = 'race'; // Set the current page
 
     gameState.raceInProgress = true;
@@ -248,8 +257,12 @@ function startRace() {
     gameState.wordStatus = new Array(gameState.currentRaceWords.length).fill('untyped'); // initialize word status
     gameState.totalRaceCharacters = gameState.currentRaceWords.join(' ').length; // Calculate total chars once
 
-    document.getElementById('race-input').value = '';
-    document.getElementById('race-input').focus();
+    // Make sure the race input element exists before trying to access it
+    const raceInput = document.getElementById('race-input');
+    if (raceInput) {
+        raceInput.value = '';
+        raceInput.focus();
+    }
 
     // Check for achievement: First Race Completed
     checkAchievement('first_race_completed');
@@ -260,6 +273,13 @@ function startRace() {
     updateDOM(); // Renders the race view (and gets element references)
 
     gameState.raceInterval = setInterval(() => {
+        // Safety check in case something went wrong
+        if (!gameState.raceInProgress) {
+            clearInterval(gameState.raceInterval);
+            gameState.raceInterval = null;
+            return;
+        }
+
         gameState.timeElapsed++;
         gameState.wpm = calculateWPM();
         updateRaceInfo();
