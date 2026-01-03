@@ -46,7 +46,7 @@ h1 {
 #race-track {
     position: relative;
     width: 95%; /* Slightly less than 100% to fit within container */
-    height: 120px; /* Increased height for better visibility */
+    height: 150px; /* Increased height for new layout */
     background-color: #4CAF50; /* Green track */
     margin: 20px auto; /* Centered horizontally */
     overflow: hidden; /* Hide car if it goes beyond track bounds */
@@ -57,11 +57,11 @@ h1 {
 
 #car-container {
     position: absolute;
-    top: 50%; /* Center vertically within race-track */
-    left: 0; /* Start at the left edge of race-track */
-    transform: translateY(-50%);
+    bottom: 25px; /* Position just above the progress bar */
+    left: 0;
     height: 60px; /* Height of the car area */
     width: 100%; /* Take full width of race-track for positioning */
+    z-index: 10; /* Ensure car is on top */
 }
 
 #player-car {
@@ -83,6 +83,7 @@ h1 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    transform: scaleX(-1);
 }
 .porsche {
     background-image: url('porsche_911 .webp');
@@ -105,7 +106,7 @@ h1 {
     overflow: hidden;
     margin: 10px auto;
     position: absolute; /* Position relative to #race-track */
-    bottom: 50px; /* Position above input field */
+    bottom: 10px; /* Position at the bottom */
     left: 5%; /* Center it horizontally with track */
 }
 
@@ -149,7 +150,14 @@ h1 {
 
 .current-word {
     background-color: #f1c40f; /* Yellow for current word */
-    color: #2c3e50;
+}
+
+.word-correct {
+    color: green;
+}
+
+.word-incorrect {
+    color: red;
 }
 
 #race-input {

@@ -27,6 +27,7 @@ let gameState = {
     charactersTyped: 0,
     timeElapsed: 0,
     targetWord: '',
+    wordStatus: [],
     totalRaceCharacters: 0 // Total characters for calculating progress
 };
 
@@ -159,10 +160,7 @@ function renderRace() {
     progressBarElement = document.getElementById('progress-bar');
 
     // Populate the words to type and highlight the first word
-    const wordsToTypeElement = document.getElementById('words-to-type');
-    wordsToTypeElement.innerHTML = gameState.currentRaceWords.map((word, i) => 
-        `<span class="${i === gameState.wordIndex ? 'current-word' : ''}">${word}</span>`
-    ).join(' ');
+    highlightWord(gameState.wordIndex);
     
     // Attach input event listener for race
     document.getElementById('race-input').addEventListener('input', handleRaceInput);
@@ -235,6 +233,7 @@ function startRace() {
     gameState.timeElapsed = 0;
     gameState.currentRaceInput = '';
     gameState.currentRaceWords = generateRaceWords(); // Generate words for the race
+    gameState.wordStatus = new Array(gameState.currentRaceWords.length).fill('untyped'); // initialize word status
     gameState.totalRaceCharacters = gameState.currentRaceWords.join(' ').length; // Calculate total chars once
 
     document.getElementById('race-input').value = '';
@@ -259,53 +258,8 @@ function startRace() {
 }
 
 function generateRaceWords() {
-    // Simple word generation for now, can be expanded
-    const words = [
-        "programming", "javascript", "developer", "keyboard", "terminal",
-        "openai", "gemini", "typescript", "frontend", "backend",
-        "algorithm", "function", "variable", "computer", "science",
-        "challenge", "creative", "project", "testing", "debugging",
-        "application", "interface", "software", "engineering", "learning",
-        "database", "network", "protocol", "security", "framework",
-        "library", "module", "component", "functionality", "performance",
-        "optimization", "scalability", "architecture", "deployment", "versioning",
-        "repository", "commit", "branch", "merge", "pullrequest",
-        "testing", "debugging", "compilation", "runtime", "environment",
-        "syntax", "semantics", "compiler", "interpreter", "virtualmachine",
-        "container", "docker", "kubernetes", "cloud", "serverless",
-        "authentication", "authorization", "encryption", "decryption", "hashing",
-        "userinterface", "userexperience", "responsivedesign", "accessibility", "usability",
-        "agile", "scrum", "kanban", "waterfall", "methodology",
-        "innovation", "creativity", "solution", "problem", "analysis",
-        "data", "information", "knowledge", "intelligence", "learning",
-        "artificial", "machine", "deep", "neural", "robotics",
-        "algorithm", "structure", "design", "pattern", "system",
-        "internet", "web", "mobile", "desktop", "application",
-        "development", "engineering", "coding", "scripting", "markup",
-        "stylesheet", "framework", "library", "package", "dependency",
-        "configuration", "setting", "parameter", "option", "default",
-        "process", "thread", "concurrency", "parallelism", "asynchronous",
-        "synchronous", "callback", "promise", "asyncawait", "eventloop",
-        "storage", "memory", "cache", "buffer", "stream",
-        "input", "output", "device", "driver", "firmware",
-        "hardware", "software", "firmware", "middleware", "operating",
-        "system", "kernel", "shell", "command", "interface",
-        "utility", "tool", "debugger", "profiler", "monitor",
-        "console", "terminal", "editor", "ide", "api",
-        "request", "response", "header", "body", "status",
-        "error", "exception", "logging", "tracing", "monitoring",
-        "alerting", "notification", "dashboard", "report", "metrics",
-        "analytics", "telemetry", "observability", "reliability", "resilience",
-        "faulttolerance", "disasterrecovery", "backup", "restore", "snapshot",
-        "virtualization", "emulation", "simulation", "modeling", "prototyping"
-    ];
-    // Pick a number of words for the race, e.g., 30-50 words
-    const numberOfWords = 40;
-    let raceWords = [];
-    for (let i = 0; i < numberOfWords; i++) {
-        raceWords.push(words[Math.floor(Math.random() * words.length)]);
-    }
-    return raceWords;
+    const paragraph = "The quick brown fox jumps over the lazy dog. This classic sentence contains all the letters of the English alphabet. Typing it is a good way to practice your skills. Let's see how fast you can go!";
+    return paragraph.split(' ');
 }
 
 function handleRaceInput(event) {
@@ -313,38 +267,36 @@ function handleRaceInput(event) {
     const wordsToType = gameState.currentRaceWords;
     const targetWord = wordsToType[gameState.wordIndex];
 
-    // Check if the input matches the beginning of the target word
-    if (input.startsWith(targetWord.substring(0, input.length))) {
-        gameState.currentRaceInput = input;
-        
-        // Update charactersTyped based on current input length for smoother animation
-        let totalCorrectCharsSoFar = 0;
-        for(let i = 0; i < gameState.wordIndex; i++) {
-            totalCorrectCharsSoFar += gameState.currentRaceWords[i].length;
-        }
-        gameState.charactersTyped = totalCorrectCharsSoFar + input.length;
-        
-        // Check if a word is completed
-        if (input === targetWord) {
+    // Check for spacebar press to move to the next word
+    if (input.endsWith(' ')) {
+        const typedWord = input.slice(0, -1);
+        if (typedWord === targetWord) {
+            gameState.wordStatus[gameState.wordIndex] = 'correct';
             gameState.wordIndex++;
             if (gameState.wordIndex < wordsToType.length) {
                 gameState.targetWord = wordsToType[gameState.wordIndex];
-                document.getElementById('race-input').value = ''; // Clear input for next word
+                document.getElementById('race-input').value = '';
                 gameState.currentRaceInput = '';
-                highlightWord(gameState.wordIndex); // Highlight next word
+                highlightWord(gameState.wordIndex);
             } else {
-                // Race finished (all words typed)
-                endRace(true); // True indicates completion by typing all words
+                endRace(true);
             }
+        } else {
+            gameState.wordStatus[gameState.wordIndex] = 'incorrect';
+            highlightWord(gameState.wordIndex);
         }
-    } else {
-        // Incorrect input, reset current word input but keep overall progress
-        // Do not reset charactersTyped, only the input field and currentRaceInput for this word
-        event.target.value = '';
-        gameState.currentRaceInput = '';
+        return;
     }
-    
-    gameState.wpm = calculateWPM(); // Recalculate WPM on each input change
+
+    gameState.currentRaceInput = input;
+
+    let totalCorrectCharsSoFar = 0;
+    for (let i = 0; i < gameState.wordIndex; i++) {
+        totalCorrectCharsSoFar += gameState.currentRaceWords[i].length + 1; // +1 for space
+    }
+    gameState.charactersTyped = totalCorrectCharsSoFar + input.length;
+
+    gameState.wpm = calculateWPM();
     updateRaceInfo();
 }
 
@@ -393,10 +345,19 @@ function updateRaceInfo() {
 
 function highlightWord(index) {
     const wordsToTypeElement = document.getElementById('words-to-type');
-    // Re-render with spans for easier highlighting
-    wordsToTypeElement.innerHTML = gameState.currentRaceWords.map((word, i) => 
-        `<span class="${i === index ? 'current-word' : ''}">${word}</span>`
-    ).join(' ');
+    wordsToTypeElement.innerHTML = gameState.currentRaceWords.map((word, i) => {
+        let wordClass = '';
+        if (gameState.wordStatus[i] === 'correct') {
+            wordClass = 'word-correct';
+        } else if (gameState.wordStatus[i] === 'incorrect') {
+            wordClass = 'word-incorrect';
+        }
+
+        if (i === index) {
+            wordClass += ' current-word';
+        }
+        return `<span class="${wordClass}">${word}</span>`;
+    }).join(' ');
 }
 
 function endRace(completedByTyping = false) {
