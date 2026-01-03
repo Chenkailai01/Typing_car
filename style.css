@@ -1,0 +1,203 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    margin: 0;
+}
+
+#game-container {
+    text-align: center;
+    background-color: #34495e;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 700px;
+}
+
+h1 {
+    color: #1abc9c;
+    margin-bottom: 20px;
+}
+
+.menu-button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #ecf0f1;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: #c0392b;
+}
+
+/* Race section styling */
+#race-track {
+    position: relative;
+    width: 95%; /* Slightly less than 100% to fit within container */
+    height: 120px; /* Increased height for better visibility */
+    background-color: #4CAF50; /* Green track */
+    margin: 20px auto; /* Centered horizontally */
+    overflow: hidden; /* Hide car if it goes beyond track bounds */
+    border-radius: 8px;
+    border: 2px solid #333;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+#car-container {
+    position: absolute;
+    top: 50%; /* Center vertically within race-track */
+    left: 0; /* Start at the left edge of race-track */
+    transform: translateY(-50%);
+    height: 60px; /* Height of the car area */
+    width: 100%; /* Take full width of race-track for positioning */
+}
+
+#player-car {
+    position: absolute;
+    top: 0; /* Align to the top of car-container */
+    left: 0; /* Start at the beginning of its container */
+    width: 70px; /* Car width */
+    height: 50px; /* Car height */
+    background-color: #e74c3c; /* Default red car if image fails */
+    border-radius: 4px;
+    transition: transform 0.1s linear; /* Smooth movement controlled by JS */
+    /* Placeholder for car images - replace 'assets/...' with actual paths */
+    /* background-image: url('assets/mustang.png'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Basic car styles */
+.car {
+    width: 70px; /* Match #player-car width */
+    height: 50px; /* Match #player-car height */
+    border-radius: 4px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Placeholder car image classes - Replace with actual image paths */
+.mustang { background-image: url('assets/mustang.png'); background-color: transparent; }
+.porsche { background-image: url('assets/porsche.png'); background-color: transparent; }
+.ferrari { background-image: url('assets/ferrari.png'); background-color: transparent; }
+.mclaren { background-image: url('assets/mclaren.png'); background-color: transparent; }
+.lamborghini { background-image: url('assets/lamborghini.png'); background-color: transparent; }
+.bugatti { background-image: url('assets/bugatti.png'); background-color: transparent; }
+.f1 { background-image: url('assets/f1.png'); background-color: transparent; }
+
+
+#progress-bar-container {
+    width: 90%;
+    height: 15px;
+    background-color: #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px auto;
+    position: absolute; /* Position relative to #race-track */
+    bottom: 50px; /* Position above input field */
+    left: 5%; /* Center it horizontally with track */
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%; /* Controlled by JS */
+    background-color: #f39c12; /* Orange progress */
+    border-radius: 8px;
+    transition: width 0.1s linear; /* Smooth progress bar update */
+}
+
+#race-info {
+    margin-top: 10px;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0 5%; /* Add padding to align with progress bar */
+    box-sizing: border-box;
+}
+
+#race-info p {
+    margin: 5px 0;
+}
+
+#word-display {
+    margin-top: 20px;
+    font-size: 1.2em;
+    min-height: 3em; /* Ensure space for words */
+    word-break: break-all;
+    padding: 0 5%; /* Align with other sections */
+    box-sizing: border-box;
+}
+
+#words-to-type span {
+    margin: 0 2px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    display: inline-block; /* For highlighting */
+}
+
+.current-word {
+    background-color: #f1c40f; /* Yellow for current word */
+    color: #2c3e50;
+}
+
+#race-input {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Shop item styling */
+.car-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 8px 0;
+    background-color: #2c3e50;
+    border-radius: 5px;
+}
+
+.car-item span:first-child {
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 15px;
+}
+
+.selected-car {
+    border: 2px solid #1abc9c;
+    background-color: #3a506b;
+}
+
+/* Achievement item styling */
+.achievement-item {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.achievement-item.earned {
+    background-color: #27ae60; /* Green for earned */
+}
+
+.achievement-item.not-earned {
+    background-color: #7f8c8d; /* Gray for not earned */
+}
