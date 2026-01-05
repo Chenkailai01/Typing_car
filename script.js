@@ -10,6 +10,7 @@ let gameState = {
         { id: 'ferrari', name: 'Ferrari F8', price: 850000, owned: false, selected: false },
         { id: 'mclaren', name: 'McLaren 720S', price: 1000000, owned: false, selected: false },
         { id: 'lamborghini', name: 'Lamborghini Aventador', price: 1400000, owned: false, selected: false },
+        { id: 'koenigsegg', name: 'Koenigsegg Jesko Absolut', price: 1500000, owned: false, selected: false },
         { id: 'bugatti', name: 'Bugatti Chiron', price: 1600000, owned: false, selected: false },
         { id: 'f1', name: 'F1 Race Car', price: 2000000, owned: false, selected: false }
     ],
