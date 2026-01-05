@@ -215,11 +215,22 @@ function purchaseCar(carId) {
 function checkAchievement(achievementId) {
     const achievement = gameState.achievements.find(a => a.id === achievementId);
     if (achievement && !achievement.earned) {
-        achievement.earned = true;
-        alert(`Achievement Unlocked: ${achievement.name}!`);
-        // Update currency if achievement provides one
-        if (achievementId === 'first_race_completed') gameState.currency += 500000; // Example reward
-        updateDOM(); // Update achievements page if visible
+        // Special handling for the millionaire achievement
+        if (achievementId === 'rich_one_million') {
+            // Only award if currency is at least $1,000,000
+            if (gameState.currency >= 1000000) {
+                achievement.earned = true;
+                alert(`Achievement Unlocked: ${achievement.name}!`);
+                // Millionaire achievement doesn't give additional currency reward
+                updateDOM(); // Update achievements page if visible
+            }
+        } else {
+            // Regular achievements
+            achievement.earned = true;
+            alert(`Achievement Unlocked: ${achievement.name}!`);
+            gameState.currency += 600000; // $600,000 reward for each achievement
+            updateDOM(); // Update achievements page if visible
+        }
     }
 }
 
@@ -417,6 +428,10 @@ function endRace(completedByTyping = false) {
             checkAchievement('wpm_100');
         }
     }
+
+    // Add $2000 reward for finishing the race
+    gameState.currency += 2000;
+    raceResult += `\nYou earned $2,000 for completing the race!`;
 
     alert(raceResult);
 
