@@ -275,9 +275,6 @@ function startRace() {
         raceInput.focus();
     }
 
-    // Check for achievement: First Race Completed
-    checkAchievement('first_race_completed');
-
     // Update target word
     gameState.targetWord = gameState.currentRaceWords[gameState.wordIndex];
 
@@ -432,6 +429,11 @@ function endRace(completedByTyping = false) {
     // Add $2000 reward for finishing the race
     gameState.currency += 2000;
     raceResult += `\nYou earned $2,000 for completing the race!`;
+
+    // Check if this is the first race completed (if the achievement hasn't been earned yet)
+    if (!gameState.achievements.find(a => a.id === 'first_race_completed').earned) {
+        checkAchievement('first_race_completed');
+    }
 
     alert(raceResult);
 
